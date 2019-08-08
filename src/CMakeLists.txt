@@ -524,27 +524,12 @@ elseif(APPLE)
 
   if(HAS_FFMPEG)
     list(APPEND SMDATA_LINK_LIB
-                "${SM_FFMPEG_ROOT}/libavformat/libavformat.a"
-                "${SM_FFMPEG_ROOT}/libavcodec/libavcodec.a"
-                "${SM_FFMPEG_ROOT}/libswscale/libswscale.a"
-                "${SM_FFMPEG_ROOT}/libavutil/libavutil.a")
+                "${FFMPEG_LIBRARIES}")
   endif()
 else() # Unix / Linux TODO: Remember to find and locate the zip archive files.
   if(HAS_FFMPEG)
-    if(WITH_SYSTEM_FFMPEG)
-      list(APPEND SMDATA_LINK_LIB
-                  "${FFMPEG_avformat_LIBRARY}"
-                  "${FFMPEG_avcodec_LIBRARY}"
-                  "${FFMPEG_swscale_LIBRARY}"
-                  "${FFMPEG_avutil_LIBRARY}")
-    else()
-      list(APPEND SMDATA_LINK_LIB
-                  "${SM_FFMPEG_ROOT}/libavformat/libavformat.a"
-                  "${SM_FFMPEG_ROOT}/libavcodec/libavcodec.a"
-                  "${SM_FFMPEG_ROOT}/libswscale/libswscale.a"
-                  "${SM_FFMPEG_ROOT}/libavutil/libavutil.a")
-    endif()
-
+    list(APPEND SMDATA_LINK_LIB
+              "${FFMPEG_LIBRARIES}")
     if(NOT WITH_SYSTEM_ZLIB)
       list(REMOVE_ITEM SMDATA_LINK_LIB "zlib")
       list(APPEND SMDATA_LINK_LIB "zlib")
@@ -625,18 +610,9 @@ if(NOT APPLE)
                   "${SM_EXTERN_DIR}/newvorbis/lib"
                   "${SM_EXTERN_DIR}/newvorbis/include")
     endif()
-    list(APPEND SM_INCLUDE_DIRS "${SM_EXTERN_DIR}/ffmpeg/include")
   else()
     if(WITH_OGG)
       list(APPEND SM_INCLUDE_DIRS "${SM_EXTERN_DIR}/vorbis")
-    endif()
-    if(HAS_FFMPEG)
-      if(WITH_SYSTEM_FFMPEG)
-        list(APPEND SM_INCLUDE_DIRS "${FFMPEG_INCLUDE_DIR}")
-      else()
-        add_dependencies("${SM_EXE_NAME}" "ffmpeg")
-        list(APPEND SM_INCLUDE_DIRS "${SM_FFMPEG_SRC_DIR}" "${SM_FFMPEG_ROOT}")
-      endif()
     endif()
     if(HAS_GTK2)
       list(APPEND SM_INCLUDE_DIRS "${GTK2_INCLUDE_DIRS}")
@@ -657,10 +633,10 @@ else()
                 "${SM_EXTERN_DIR}/newvorbis/include")
   endif()
   list(APPEND SM_INCLUDE_DIRS "archutils/Unix")
-  if(HAS_FFMPEG)
-    add_dependencies("${SM_EXE_NAME}" "ffmpeg")
-    list(APPEND SM_INCLUDE_DIRS "${SM_FFMPEG_SRC_DIR}" "${SM_FFMPEG_ROOT}")
-  endif()
+endif()
+
+if(HAS_FFMPEG)
+  list(APPEND SM_INCLUDE_DIRS "${FFMPEG_INCLUDE_DIR}")
 endif()
 
 if(WIN32)
