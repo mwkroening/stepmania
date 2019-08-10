@@ -2,10 +2,20 @@ language:
   - cpp
   - c
 notifications:
-    email: false
-    irc: "chat.freenode.net#stepmania"
+  email: false
+  irc: "chat.freenode.net#stepmania"
 
-dist: bionic
+os:
+  - linux
+  - osx
+
+env:
+  - BUILD_TYPE=Release
+  - BUILD_TYPE=Debug
+
+compiler:
+  - gcc
+  - clang
 
 addons:
   apt:
@@ -21,15 +31,9 @@ addons:
       - yasm
 
 matrix:
-  include:
-    - os: linux
-      compiler: gcc
-    - os: linux
-      compiler: clang
+  exclude:
     - os: osx
-    - os: windows
-      script:
-        - msbuild
+      compiler: gcc
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update      ; fi
@@ -40,6 +44,8 @@ install:
 before_script:
   - cd Build
   - cmake ..
+    -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+    -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
 
 script:
   - make -j2
