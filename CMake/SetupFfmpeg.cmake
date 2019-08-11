@@ -54,8 +54,12 @@ set(FFMPEG_STATIC_LIBRARY_DIRS ${BINARY_DIR}/doc/examples/pc-uninstalled/../../.
                                ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavcodec
                                ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavutil
                                ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libswscale)
+# TODO: Use target_link_directories when upgrading to cmake 3.13
+link_directories(${FFMPEG_STATIC_LIBRARY_DIRS})
 set(FFMPEG_STATIC_LIBRARIES avformat bz2 swscale avcodec lzma z avutil va-drm va-x11 vdpau m va Xv X11 Xext)
 
+# Use this to update FFMPEG_STATIC_LIBRARY_DIRS and FFMPEG_STATIC_LIBRARIES
+# after a FFmpeg upgrade.
 if(FALSE)
   externalproject_get_property(ffmpeg BINARY_DIR)
   set(ENV{PKG_CONFIG_PATH} ${BINARY_DIR}/doc/examples/pc-uninstalled/)
@@ -74,5 +78,3 @@ endif()
 #            ${BINARY_DIR}/libswscale/libswscale.a
 #            ${BINARY_DIR}/libavutil/libavutil.a
 #)
-#externalproject_get_property(ffmpeg SOURCE_DIR)
-#set(FFMPEG_INCLUDE_DIR ${SOURCE_DIR})
