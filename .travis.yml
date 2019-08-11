@@ -29,8 +29,8 @@ addons:
       - libxinerama-dev
       - libxrandr-dev
       - yasm
-      - libvdpau1 # vs libvdpau-dev
-      - libxv1 # vs libxv-dev
+      - libvdpau-dev
+      - libxv-dev
 
 matrix:
   exclude:
