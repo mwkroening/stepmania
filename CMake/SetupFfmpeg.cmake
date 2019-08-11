@@ -42,16 +42,24 @@ externalproject_add(ffmpeg
   GIT_REPOSITORY    https://git.ffmpeg.org/ffmpeg.git
   GIT_TAG           n4.2
   GIT_SHALLOW       TRUE
-  CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR> ${FFMPEG_CONFIGURE_OPTIONS}
+  CONFIGURE_COMMAND <SOURCE_DIR>/configure ${FFMPEG_CONFIGURE_OPTIONS}
   BUILD_COMMAND     ${MAKE_EXE} ${JOBS_ARG}
+  INSTALL_COMMAND   ""
 )
 
-externalproject_get_property(ffmpeg INSTALL_DIR)
-set(ENV{PKG_CONFIG_PATH} ${INSTALL_DIR}/lib/pkgconfig)
-pkg_check_modules(FFMPEG libavformat
-                                  libswscale
-                                  libavcodec
-                                  libavutil)
+externalproject_get_property(ffmpeg BINARY_DIR)
+set(ENV{PKG_CONFIG_PATH} ${BINARY_DIR}/doc/examples/pc-uninstalled/)
+pkg_check_modules(FFMPEG libavformat-uninstalled
+                         libswscale-uninstalled
+                         libavcodec-uninstalled
+                         libavutil-uninstalled)
+
+if(NOT ${FFMPEG_FOUND})
+  add_custom_target(Rescan ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR} DEPENDS ffmpeg)
+else()
+  add_custom_target(Rescan)
+endif()
+
 
 #list(APPEND FFMPEG_LIBRARIES
 #            ${BINARY_DIR}/libavformat/libavformat.a

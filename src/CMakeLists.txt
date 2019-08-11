@@ -529,7 +529,7 @@ elseif(APPLE)
   endif()
 else() # Unix / Linux TODO: Remember to find and locate the zip archive files.
   if(HAS_FFMPEG)
-    add_dependencies(${SM_EXE_NAME} ffmpeg)
+    list(APPEND ${SM_DEPENDENCIES} Rescan)
     list(APPEND SMDATA_LINK_LIB
               "${FFMPEG_LIBRARIES}")
     if(NOT WITH_SYSTEM_ZLIB)
@@ -647,7 +647,7 @@ else()
   list(APPEND SM_INCLUDE_DIRS "${SM_EXTERN_DIR}/libpng/include")
 endif()
 
-
+add_dependencies(${SM_EXE_NAME} Rescan)
 target_include_directories("${SM_EXE_NAME}" PUBLIC ${SM_INCLUDE_DIRS})
 
 if(WIN32)
