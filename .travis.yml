@@ -6,12 +6,12 @@ notifications:
   irc: "chat.freenode.net#stepmania"
 
 os:
-  - linux
+#  - linux
   - osx
 
 env:
   - BUILD_TYPE=Release
-  - BUILD_TYPE=Debug
+#  - BUILD_TYPE=Debug
 
 compiler:
   - gcc
@@ -45,7 +45,7 @@ install:
 
 before_script:
   - cd Build
-  - cmake ..
+  - cmake .. -Wdev --debug-output --trace
     -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
     -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
 
