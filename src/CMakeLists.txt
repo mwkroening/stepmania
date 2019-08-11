@@ -532,6 +532,8 @@ else() # Unix / Linux TODO: Remember to find and locate the zip archive files.
     add_dependencies(${SM_EXE_NAME} ffmpeg)
     list(APPEND SMDATA_LINK_LIB
               "${FFMPEG_STATIC_LIBRARIES}")
+    list(APPEND SMDATA_LINK_LIB
+                "${FFMPEG_LIBRARIES}")
     if(NOT WITH_SYSTEM_ZLIB)
       list(REMOVE_ITEM SMDATA_LINK_LIB "zlib")
       list(APPEND SMDATA_LINK_LIB "zlib")

@@ -427,24 +427,11 @@ elseif(LINUX)
   find_package("Va")
 
   if(WITH_FFMPEG)
+    set(HAS_FFMPEG TRUE)
     if(WITH_SYSTEM_FFMPEG)
-      find_package("FFMPEG")
-      if(NOT FFMPEG_FOUND)
-        message(
-          FATAL_ERROR
-            "System ffmpeg not found! Either install the libraries or remove the argument, then try again."
-          )
-      else()
-
-        message(
-          STATUS
-            "-- Warning! Your version of ffmpeg may be too high! If you want to use the system ffmpeg, clear your cmake cache and do not include the system ffmpeg argument."
-          )
-        set(HAS_FFMPEG TRUE)
-      endif()
+      find_package(FFMPEG REQUIRED COMPONENTS avcodec avformat avutil)
     else()
       include("${SM_CMAKE_DIR}/SetupFfmpeg.cmake")
-      set(HAS_FFMPEG TRUE)
     endif()
   else()
     set(HAS_FFMPEG FALSE)
