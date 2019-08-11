@@ -529,9 +529,9 @@ elseif(APPLE)
   endif()
 else() # Unix / Linux TODO: Remember to find and locate the zip archive files.
   if(HAS_FFMPEG)
-    list(APPEND ${SM_DEPENDENCIES} Rescan)
+    add_dependencies(${SM_EXE_NAME} ffmpeg)
     list(APPEND SMDATA_LINK_LIB
-              "${FFMPEG_LIBRARIES}")
+              "${FFMPEG_STATIC_LIBRARIES}")
     if(NOT WITH_SYSTEM_ZLIB)
       list(REMOVE_ITEM SMDATA_LINK_LIB "zlib")
       list(APPEND SMDATA_LINK_LIB "zlib")
@@ -595,6 +595,7 @@ else() # Unix / Linux TODO: Remember to find and locate the zip archive files.
   list(REMOVE_DUPLICATES SMDATA_LINK_LIB)
 endif()
 
+target_link_directories("${SM_EXE_NAME}" PRIVATE ${FFMPEG_STATIC_LIBRARY_DIRS})
 target_link_libraries("${SM_EXE_NAME}" ${SMDATA_LINK_LIB})
 
 list(APPEND SM_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}
@@ -647,7 +648,7 @@ else()
   list(APPEND SM_INCLUDE_DIRS "${SM_EXTERN_DIR}/libpng/include")
 endif()
 
-add_dependencies(${SM_EXE_NAME} Rescan)
+
 target_include_directories("${SM_EXE_NAME}" PUBLIC ${SM_INCLUDE_DIRS})
 
 if(WIN32)

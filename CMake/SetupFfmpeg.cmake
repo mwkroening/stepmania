@@ -47,17 +47,24 @@ externalproject_add(ffmpeg
   INSTALL_COMMAND   ""
 )
 
+externalproject_get_property(ffmpeg SOURCE_DIR)
+set(FFMPEG_INCLUDE_DIR ${SOURCE_DIR})
 externalproject_get_property(ffmpeg BINARY_DIR)
-set(ENV{PKG_CONFIG_PATH} ${BINARY_DIR}/doc/examples/pc-uninstalled/)
-pkg_check_modules(FFMPEG libavformat-uninstalled
-                         libswscale-uninstalled
-                         libavcodec-uninstalled
-                         libavutil-uninstalled)
+set(FFMPEG_STATIC_LIBRARY_DIRS ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavformat
+                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavcodec
+                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavutil
+                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libswscale)
+set(FFMPEG_STATIC_LIBRARIES avformat bz2 swscale avcodec lzma z avutil va-drm va-x11 vdpau m va Xv X11 Xext)
 
-if(NOT ${FFMPEG_FOUND})
-  add_custom_target(Rescan ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR} DEPENDS ffmpeg)
-else()
-  add_custom_target(Rescan)
+if(FALSE)
+  externalproject_get_property(ffmpeg BINARY_DIR)
+  set(ENV{PKG_CONFIG_PATH} ${BINARY_DIR}/doc/examples/pc-uninstalled/)
+  pkg_check_modules(FFMPEG REQUIRED libavformat-uninstalled
+                                    libswscale-uninstalled
+                                    libavcodec-uninstalled
+                                    libavutil-uninstalled)
+  message(WARNING "${FFMPEG_STATIC_LIBRARY_DIRS}")
+  message(FATAL_ERROR "${FFMPEG_STATIC_LIBRARIES}")
 endif()
 
 
