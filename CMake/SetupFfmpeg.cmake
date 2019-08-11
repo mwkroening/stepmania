@@ -30,26 +30,31 @@ if(NOT WITH_EXTERNAL_WARNINGS)
   list(APPEND FFMPEG_CONFIGURE_OPTIONS "--extra-cflags=-w")
 endif()
 
+# PKG_CONFIG_PATH=ffmpeg-prefix/src/ffmpeg-build/* PKG_CONFIG_SYSROOT_DIR=. pkg-config --define-variable=prefix=/foo --cflags --libs --static libavformat libavcodec libswscale libavutil
+# PKG_CONFIG_PATH=ffmpeg-prefix/src/ffmpeg-build/doc/examples/pc-uninstalled/ pkg-config --cflags --libs --static libavformat
+
+
 find_program(MAKE_EXE NAMES gmake nmake make)
 externalproject_add(ffmpeg
   GIT_REPOSITORY    https://git.ffmpeg.org/ffmpeg.git
-  GIT_TAG           n2.1.8
+  GIT_TAG           n4.2
   GIT_SHALLOW       TRUE
-  CONFIGURE_COMMAND <SOURCE_DIR>/configure ${FFMPEG_CONFIGURE_OPTIONS}
+  CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR> ${FFMPEG_CONFIGURE_OPTIONS}
   BUILD_COMMAND     ${MAKE_EXE} -j${WITH_FFMPEG_JOBS}
-  INSTALL_COMMAND   ""
-  BUILD_BYPRODUCTS  <BINARY_DIR>/libavformat/libavformat.a
-                    <BINARY_DIR>/libavcodec/libavcodec.a
-                    <BINARY_DIR>/libswscale/libswscale.a
-                    <BINARY_DIR>/libavutil/libavutil.a
 )
 
-externalproject_get_property(ffmpeg BINARY_DIR)
-list(APPEND FFMPEG_LIBRARIES
-            ${BINARY_DIR}/libavformat/libavformat.a
-            ${BINARY_DIR}/libavcodec/libavcodec.a
-            ${BINARY_DIR}/libswscale/libswscale.a
-            ${BINARY_DIR}/libavutil/libavutil.a
-)
-externalproject_get_property(ffmpeg SOURCE_DIR)
-set(FFMPEG_INCLUDE_DIR ${SOURCE_DIR})
+externalproject_get_property(ffmpeg INSTALL_DIR)
+set(ENV{PKG_CONFIG_PATH} ${INSTALL_DIR}/lib/pkgconfig)
+pkg_check_modules(FFMPEG REQUIRED libavformat
+                                  libswscale
+                                  libavcodec
+                                  libavutil)
+
+#list(APPEND FFMPEG_LIBRARIES
+#            ${BINARY_DIR}/libavformat/libavformat.a
+#            ${BINARY_DIR}/libavcodec/libavcodec.a
+#            ${BINARY_DIR}/libswscale/libswscale.a
+#            ${BINARY_DIR}/libavutil/libavutil.a
+#)
+#externalproject_get_property(ffmpeg SOURCE_DIR)
+#set(FFMPEG_INCLUDE_DIR ${SOURCE_DIR})

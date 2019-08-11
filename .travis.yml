@@ -39,7 +39,7 @@ matrix:
             addons: *clang36
 
         -
-            env: CXX_COMPILER=g++-5 CC_COMPILER=gcc-5 BUILD_TYPE=Release WITH_FFMPEG=OFF WITH_FFMPEG_JOBS=1
+            env: CXX_COMPILER=g++-5 CC_COMPILER=gcc-5 BUILD_TYPE=Release
             compiler: gcc
             addons: &gcc5
                 apt:
@@ -78,7 +78,7 @@ install:
 before_script:
     - cd ${TRAVIS_BUILD_DIR}
     - cd Build
-    - cmake .. -DCMAKE_CXX_COMPILER=${CXX_COMPILER} -DCMAKE_C_COMPILER=${CC_COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DWITH_FFMPEG=${WITH_FFMPEG} -DWITH_FFMPEG_JOBS=${WITH_FFMPEG_JOBS}
+    - cmake .. -DCMAKE_CXX_COMPILER=${CXX_COMPILER} -DCMAKE_C_COMPILER=${CC_COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DWITH_FFMPEG=ON
 
 script:
     - make -j2
