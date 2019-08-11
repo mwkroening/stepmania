@@ -45,7 +45,7 @@ externalproject_add(ffmpeg
 
 externalproject_get_property(ffmpeg INSTALL_DIR)
 set(ENV{PKG_CONFIG_PATH} ${INSTALL_DIR}/lib/pkgconfig)
-pkg_check_modules(FFMPEG REQUIRED libavformat
+pkg_check_modules(FFMPEG libavformat
                                   libswscale
                                   libavcodec
                                   libavutil)
