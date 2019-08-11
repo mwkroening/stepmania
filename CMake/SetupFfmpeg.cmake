@@ -47,10 +47,9 @@ externalproject_add(ffmpeg
   INSTALL_COMMAND   ""
 )
 
-#externalproject_get_property(ffmpeg SOURCE_DIR)
-#set(FFMPEG_INCLUDE_DIR ${SOURCE_DIR})
+externalproject_get_property(ffmpeg SOURCE_DIR)
 externalproject_get_property(ffmpeg BINARY_DIR)
-set(FFMPEG_INCLUDE_DIR ${BINARY_DIR})
+set(FFMPEG_INCLUDE_DIRS ${SOURCE_DIR} ${BINARY_DIR})
 set(FFMPEG_STATIC_LIBRARY_DIRS ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavformat
                                ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavcodec
                                ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavutil

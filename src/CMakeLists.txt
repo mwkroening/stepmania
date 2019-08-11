@@ -638,7 +638,7 @@ else()
 endif()
 
 if(HAS_FFMPEG)
-  list(APPEND SM_INCLUDE_DIRS "${FFMPEG_INCLUDE_DIR}")
+  list(APPEND SM_INCLUDE_DIRS "${FFMPEG_INCLUDE_DIRS}")
 endif()
 
 if(WIN32)
