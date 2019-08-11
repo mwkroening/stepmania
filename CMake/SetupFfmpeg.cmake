@@ -33,6 +33,9 @@ endif()
 # PKG_CONFIG_PATH=ffmpeg-prefix/src/ffmpeg-build/* PKG_CONFIG_SYSROOT_DIR=. pkg-config --define-variable=prefix=/foo --cflags --libs --static libavformat libavcodec libswscale libavutil
 # PKG_CONFIG_PATH=ffmpeg-prefix/src/ffmpeg-build/doc/examples/pc-uninstalled/ pkg-config --cflags --libs --static libavformat
 
+if (WITH_FFMPEG_JOBS GREATER 0)
+  set(JOBS_ARG -j${WITH_FFMPEG_JOBS})
+endif()
 
 find_program(MAKE_EXE NAMES gmake nmake make)
 externalproject_add(ffmpeg
@@ -40,7 +43,7 @@ externalproject_add(ffmpeg
   GIT_TAG           n4.2
   GIT_SHALLOW       TRUE
   CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR> ${FFMPEG_CONFIGURE_OPTIONS}
-  BUILD_COMMAND     ${MAKE_EXE} -j${WITH_FFMPEG_JOBS}
+  BUILD_COMMAND     ${MAKE_EXE} ${JOBS_ARG}
 )
 
 externalproject_get_property(ffmpeg INSTALL_DIR)
