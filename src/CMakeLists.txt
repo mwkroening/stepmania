@@ -524,6 +524,9 @@ elseif(APPLE)
               "${ICONV_LIBRARIES}")
 
   if(HAS_FFMPEG)
+    add_dependencies(${SM_EXE_NAME} ffmpeg)
+    list(APPEND SMDATA_LINK_LIB
+              "${FFMPEG_STATIC_LIBRARIES}")
     list(APPEND SMDATA_LINK_LIB
                 "${FFMPEG_LIBRARIES}")
   endif()
