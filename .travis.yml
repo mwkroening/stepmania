@@ -28,13 +28,13 @@ addons:
       - libvorbis-dev
       - libxinerama-dev
       - libxrandr-dev
-      - nasm
       - libvdpau-dev
       - libxv-dev
       - libavcodec-dev
       - libswscale-dev
       - libavutil-dev
       - libavformat-dev
+#      - nasm
 
 matrix:
   exclude:
@@ -45,12 +45,13 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
 
 install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install nasm; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install ffmpeg; fi
+#  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install nasm; fi
 
 before_script:
   - cd Build
   - cmake ..
+    -DWITH_SYSTEM_FFMPEG=ON
     -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
 
 script:
