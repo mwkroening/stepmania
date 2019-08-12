@@ -42,16 +42,16 @@ externalproject_add(ffmpeg
   GIT_REPOSITORY    https://git.ffmpeg.org/ffmpeg.git
   GIT_TAG           n4.2
   GIT_SHALLOW       TRUE
-  CONFIGURE_COMMAND <SOURCE_DIR>/configure ${FFMPEG_CONFIGURE_OPTIONS}
+  CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR> ${FFMPEG_CONFIGURE_OPTIONS}
   BUILD_COMMAND     ${MAKE_EXE} ${JOBS_ARG}
-  INSTALL_COMMAND   ""
+#  INSTALL_COMMAND   ""
 )
 
 #externalproject_get_property(ffmpeg SOURCE_DIR)
-externalproject_get_property(ffmpeg BINARY_DIR)
+externalproject_get_property(ffmpeg INSTALL_DIR)
 find_package(FFMPEG REQUIRED
   COMPONENTS        avcodec avformat avutil
-  PATH              ${BINARY_DIR})
+  PATH              ${INSTALL_DIR})
 
 # BINARY_DIR includes libavutil/avconfig.h
 #set(FFMPEG_INCLUDE_DIRS ${SOURCE_DIR} ${BINARY_DIR})
