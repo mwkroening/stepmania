@@ -34,6 +34,7 @@ addons:
       - libavcodec-dev
       - libswscale-dev
       - libavutil-dev
+      - libavformat-dev
 
 matrix:
   exclude:
