@@ -31,6 +31,9 @@ addons:
       - nasm
       - libvdpau-dev
       - libxv-dev
+      - libavcodec-dev
+      - libswscale-dev
+      - libavutil-dev
 
 matrix:
   exclude:
@@ -46,11 +49,10 @@ install:
 
 before_script:
   - cd Build
-  - echo $LDFLAGS
-  - export LDFLAGS=-mmacosx-version-min=10.13
-  - echo $CFLAGS
-  - export CFLAGS=-mmacosx-version-min=10.13
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export CFLAGS=-mmacosx-version-min=10.13; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export LDFLAGS=-mmacosx-version-min=10.13; fi
   - cmake ..
+    -DWITH_SYSTEM_FFMPEG=ON
     -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
 
 script:
