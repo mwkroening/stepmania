@@ -652,6 +652,10 @@ endif()
 
 target_include_directories("${SM_EXE_NAME}" PUBLIC ${SM_INCLUDE_DIRS})
 
+add_link_options(-mmacosx-version-min=10.13)
+add_compile_options(-mmacosx-version-min=10.13)
+
+
 if(WIN32)
   set(SM_INSTALL_DESTINATION ".")
 else()
