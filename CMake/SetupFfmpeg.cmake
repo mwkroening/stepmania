@@ -38,6 +38,7 @@ if (WITH_FFMPEG_JOBS GREATER 0)
 endif()
 
 find_program(MAKE_EXE NAMES gmake nmake make)
+set(ENV{LDFLAGS} -mmacosx-version-min=10.13)
 externalproject_add(ffmpeg
   GIT_REPOSITORY    https://git.ffmpeg.org/ffmpeg.git
   GIT_TAG           n4.2
