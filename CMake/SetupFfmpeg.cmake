@@ -42,8 +42,8 @@ externalproject_add(ffmpeg
   GIT_REPOSITORY    https://git.ffmpeg.org/ffmpeg.git
   GIT_TAG           n4.2
   GIT_SHALLOW       TRUE
-  CONFIGURE_COMMAND <SOURCE_DIR>/configure ${FFMPEG_CONFIGURE_OPTIONS} --cc=clang -mmacosx-version-min=10.13
-  BUILD_COMMAND     ${MAKE_EXE} ${JOBS_ARG} -mmacosx-version-min=10.13
+  CONFIGURE_COMMAND <SOURCE_DIR>/configure ${FFMPEG_CONFIGURE_OPTIONS} --cc=clang --extra-ldexeflags=-mmacosx-version-min=10.13
+  BUILD_COMMAND     ${MAKE_EXE} ${JOBS_ARG}
   INSTALL_COMMAND   ""
 )
 
