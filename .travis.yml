@@ -6,7 +6,7 @@ notifications:
   irc: "chat.freenode.net#stepmania"
 
 os:
-#  - linux
+  - linux
   - osx
 
 env:
@@ -28,7 +28,7 @@ addons:
       - libvorbis-dev
       - libxinerama-dev
       - libxrandr-dev
-      - yasm
+      - nasm
       - libvdpau-dev
       - libxv-dev
 
@@ -41,7 +41,8 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update      ; fi
 
 install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install yasm; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install nasm; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install ffmpeg; fi
 
 before_script:
   - cd Build
@@ -50,7 +51,6 @@ before_script:
   - echo $CFLAGS
   - export CFLAGS=-mmacosx-version-min=10.13
   - cmake ..
-    -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
     -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
 
 script:
