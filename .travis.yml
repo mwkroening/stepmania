@@ -47,6 +47,8 @@ before_script:
   - cd Build
   - echo $LDFLAGS
   - export LDFLAGS=-mmacosx-version-min=10.13
+  - echo $CFLAGS
+  - export CFLAGS=-mmacosx-version-min=10.13
   - cmake ..
     -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
     -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
