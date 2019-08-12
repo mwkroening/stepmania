@@ -1,0 +1,3 @@
+cmake .. \
+  -DCMAKE_BUILD_TYPE=Debug \
+  -DWITH_FFMPEG_JOBS=4

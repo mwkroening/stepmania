@@ -30,10 +30,7 @@ if(NOT WITH_EXTERNAL_WARNINGS)
   list(APPEND FFMPEG_CONFIGURE_OPTIONS "--extra-cflags=-w")
 endif()
 
-# PKG_CONFIG_PATH=ffmpeg-prefix/src/ffmpeg-build/* PKG_CONFIG_SYSROOT_DIR=. pkg-config --define-variable=prefix=/foo --cflags --libs --static libavformat libavcodec libswscale libavutil
-# PKG_CONFIG_PATH=ffmpeg-prefix/src/ffmpeg-build/doc/examples/pc-uninstalled/ pkg-config --cflags --libs --static libavformat
-
-if (WITH_FFMPEG_JOBS GREATER 0)
+if(WITH_FFMPEG_JOBS GREATER 0)
   set(JOBS_ARG -j${WITH_FFMPEG_JOBS})
 endif()
 
@@ -52,12 +49,16 @@ externalproject_get_property(ffmpeg BINARY_DIR)
 # BINARY_DIR includes libavutil/avconfig.h
 set(FFMPEG_INCLUDE_DIRS ${SOURCE_DIR} ${BINARY_DIR})
 set(FFMPEG_STATIC_LIBRARY_DIRS ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavformat
+                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libswscale
                                ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavcodec
-                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavutil
-                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libswscale)
+                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavutil)
 # TODO: Use target_link_directories when upgrading to cmake 3.13
 link_directories(${FFMPEG_STATIC_LIBRARY_DIRS})
-set(FFMPEG_STATIC_LIBRARIES avformat bz2 swscale avcodec lzma z avutil va-drm va-x11 vdpau m va Xv X11 Xext)
+if(APPLE)
+  set(FFMPEG_STATIC_LIBRARIES avformat m bz2 z swscale m avcodec iconv m lzma z avutil m)
+elseif(UNIX)
+  set(FFMPEG_STATIC_LIBRARIES avformat bz2 swscale avcodec lzma z avutil va-drm va-x11 vdpau m va Xv X11 Xext)
+endif()
 
 # Use this to update FFMPEG_STATIC_LIBRARY_DIRS and FFMPEG_STATIC_LIBRARIES
 # after a FFmpeg upgrade.
@@ -69,14 +70,6 @@ if(PRINT_FFMPEG_ARGS)
                                     libswscale-uninstalled
                                     libavcodec-uninstalled
                                     libavutil-uninstalled)
-  message(WARNING "${FFMPEG_STATIC_LIBRARY_DIRS}")
-  message(FATAL_ERROR "${FFMPEG_STATIC_LIBRARIES}")
+  message("Static library dirs: " "${FFMPEG_STATIC_LIBRARY_DIRS}")
+  message("Static libraries: " "${FFMPEG_STATIC_LIBRARIES}")
 endif()
-
-
-#list(APPEND FFMPEG_LIBRARIES
-#            ${BINARY_DIR}/libavformat/libavformat.a
-#            ${BINARY_DIR}/libavcodec/libavcodec.a
-#            ${BINARY_DIR}/libswscale/libswscale.a
-#            ${BINARY_DIR}/libavutil/libavutil.a
-#)
