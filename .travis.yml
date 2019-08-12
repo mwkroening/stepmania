@@ -57,4 +57,9 @@ before_script:
     -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
 
 script:
+  - make -j2 || true
+  - cmake ..
+    -DWITH_SYSTEM_FFMPEG=OFF
+    -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
+    -DPRINT_FFMPEG_ARGS=ON
   - make -j2

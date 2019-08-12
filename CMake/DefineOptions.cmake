@@ -68,6 +68,7 @@ option(WITH_SDL "Build with SDL" OFF)
 if(NOT MSVC)
   # Turn this option off to disable using FFMEPG.
   option(WITH_FFMPEG "Build with FFMPEG." ON)
+  option(PRINT_FFMPEG_ARGS "test" OFF)
   # Change this number to utilize a different number of jobs for building
   # FFMPEG.
   option(WITH_FFMPEG_JOBS "Build FFMPEG with this many jobs." 2)

@@ -61,7 +61,7 @@ set(FFMPEG_STATIC_LIBRARIES avformat bz2 swscale avcodec lzma z avutil va-drm va
 
 # Use this to update FFMPEG_STATIC_LIBRARY_DIRS and FFMPEG_STATIC_LIBRARIES
 # after a FFmpeg upgrade.
-if(FALSE)
+if(PRINT_FFMPEG_ARGS)
   externalproject_get_property(ffmpeg BINARY_DIR)
   set(ENV{PKG_CONFIG_PATH} ${BINARY_DIR}/doc/examples/pc-uninstalled/)
   pkg_check_modules(FFMPEG REQUIRED libavformat-uninstalled
