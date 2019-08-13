@@ -30,11 +30,11 @@ addons:
       - libxrandr-dev
       - libvdpau-dev
       - libxv-dev
-      - libavcodec-dev
-      - libswscale-dev
-      - libavutil-dev
-      - libavformat-dev
-#      - nasm
+      - nasm
+#      - libavcodec-dev
+#      - libswscale-dev
+#      - libavutil-dev
+#      - libavformat-dev
 
 matrix:
   exclude:
@@ -46,7 +46,7 @@ before_install:
 
 install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install ffmpeg; fi
-#  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install nasm; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install nasm; fi
 
 before_script:
   - cd Build
