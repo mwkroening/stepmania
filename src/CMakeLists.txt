@@ -650,7 +650,6 @@ else()
   list(APPEND SM_INCLUDE_DIRS "${SM_EXTERN_DIR}/libpng/include")
 endif()
 
-link_directories(${FFMPEG_STATIC_LIBRARY_DIRS})
 target_include_directories("${SM_EXE_NAME}" PUBLIC ${SM_INCLUDE_DIRS})
 
 add_compile_options(-mmacosx-version-min=10.13)

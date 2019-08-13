@@ -61,7 +61,7 @@ set(FFMPEG_FOUND 0)
 pkg_check_modules(FFMPEG libavcodec libavformat libavutil libswscale)
 message("Static library dirs: " "${FFMPEG_LIBRARY_DIRS}")
 message("Static libraries: " "${FFMPEG_STATIC_LIBRARIES}")
-
+link_directories(${FFMPEG_STATIC_LIBRARY_DIRS})
 
 #unset(AVCODEC_INCLUDE_DIR CACHE)
 #find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h
