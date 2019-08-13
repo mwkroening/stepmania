@@ -57,6 +57,8 @@ externalproject_get_property(ffmpeg_ext INSTALL_DIR)
 
 find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h
           PATHS               ${INSTALL_DIR})
+message("INCLUDEDIR")
+message(${AVCODEC_INCLUDE_DIR})
 find_path(AVFORMAT_INCLUDE_DIR libavformat/avformat.h
           PATHS               ${INSTALL_DIR})
 find_path(SWSCALE_INCLUDE_DIR libswscale/swscale.h
