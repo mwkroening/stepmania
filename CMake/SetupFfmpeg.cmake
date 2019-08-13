@@ -15,11 +15,11 @@ if(CMAKE_POSITION_INDEPENDENT_CODE)
   list(APPEND FFMPEG_CONFIGURE_OPTIONS "--enable-pic")
 endif()
 
-#if(MACOSX)
-#  find_program(FFMPEG_YASM_EXECUTABLE yasm
-#               PATHS /usr/bin /usr/local/bin /opt/local/bin)
-#  list(APPEND FFMPEG_CONFIGURE_OPTIONS "--yasmexe=${FFMPEG_YASM_EXECUTABLE}")
-#endif()
+if(MACOSX)
+  find_program(NASM_EXE nasm
+               PATHS /usr/bin /usr/local/bin /opt/local/bin)
+  list(APPEND FFMPEG_CONFIGURE_OPTIONS "--x86asmexe=${NASM_EXE}")
+endif()
 
 if(WITH_GPL_LIBS)
   list(APPEND FFMPEG_CONFIGURE_OPTIONS "--enable-gpl")
