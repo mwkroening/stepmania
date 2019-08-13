@@ -55,4 +55,8 @@ before_script:
     -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
 
 script:
-  - make -j2
+  - cmake --build . --parallel 2 --target ffmpeg
+  - cmake ..
+    -DWITH_SYSTEM_FFMPEG=OFF
+    -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
+  - cmake --build . --parallel 2
