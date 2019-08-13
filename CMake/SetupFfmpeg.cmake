@@ -56,7 +56,7 @@ find_package(FFMPEG REQUIRED
                     ${SOURCE_DIR})
 
 # BINARY_DIR includes libavutil/avconfig.h
-#set(FFMPEG_INCLUDE_DIRS ${SOURCE_DIR} ${BINARY_DIR})
+set(FFMPEG_INCLUDE_DIRS ${SOURCE_DIR} ${BINARY_DIR})
 #set(FFMPEG_STATIC_LIBRARY_DIRS ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavformat
 #                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libswscale
 #                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavcodec
