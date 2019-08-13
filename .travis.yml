@@ -54,7 +54,7 @@ before_script:
   - cd Build
   - echo ${SDKROOT}
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export SDKROOT=$(xcodebuild -version -sdk macosx Path); fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export CMAKE_MAKE_PROGRAM=Ninja; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export CMAKE_MAKE_PROGRAM=Xcode; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then export CMAKE_MAKE_PROGRAM=Ninja; fi
   - cmake .. -G${CMAKE_MAKE_PROGRAM}
     -DWITH_SYSTEM_FFMPEG=OFF
