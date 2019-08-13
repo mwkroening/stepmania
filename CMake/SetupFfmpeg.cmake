@@ -38,7 +38,7 @@ if(WITH_FFMPEG_JOBS GREATER 0)
 endif()
 
 find_program(MAKE_EXE NAMES gmake nmake make)
-externalproject_add(ffmpeg
+externalproject_add(ffmpeg_ext
   GIT_REPOSITORY    https://git.ffmpeg.org/ffmpeg.git
   GIT_TAG           n4.2
   GIT_SHALLOW       TRUE
@@ -48,17 +48,14 @@ externalproject_add(ffmpeg
 #  INSTALL_COMMAND   ""
 )
 
-externalproject_get_property(ffmpeg SOURCE_DIR)
-externalproject_get_property(ffmpeg BINARY_DIR)
 externalproject_get_property(ffmpeg INSTALL_DIR)
 find_package(FFMPEG REQUIRED
   COMPONENTS        avcodec avformat avutil
   PATH              ${INSTALL_DIR}
-                    ${BINARY_DIR}
-                    ${SOURCE_DIR})
+)
 
 # BINARY_DIR includes libavutil/avconfig.h
-set(FFMPEG_INCLUDE_DIRS ${SOURCE_DIR} ${BINARY_DIR})
+#set(FFMPEG_INCLUDE_DIRS ${SOURCE_DIR} ${BINARY_DIR})
 #set(FFMPEG_STATIC_LIBRARY_DIRS ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavformat
 #                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libswscale
 #                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavcodec
