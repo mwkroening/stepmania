@@ -48,7 +48,7 @@ externalproject_add(ffmpeg_ext
 #  INSTALL_COMMAND   ""
 )
 
-externalproject_get_property(ffmpeg INSTALL_DIR)
+externalproject_get_property(ffmpeg_ext INSTALL_DIR)
 find_package(FFMPEG
   COMPONENTS        avcodec avformat avutil
   PATH              ${INSTALL_DIR}
