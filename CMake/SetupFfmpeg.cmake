@@ -54,35 +54,60 @@ externalproject_get_property(ffmpeg_ext INSTALL_DIR)
 #  PATH              ${INSTALL_DIR}
 #)
 
+find_package(PkgConfig REQUIRED)
+externalproject_get_property(ffmpeg_ext INSTALL_DIR)
+set(ENV{PKG_CONFIG_PATH} ${INSTALL_DIR}/lib/pkgconfig)
+set(FFMPEG_FOUND 0)
+pkg_check_modules(FFMPEG libavcodec libavformat libavutil libswscale)
+message("Static library dirs: " "${FFMPEG_LIBRARY_DIRS}")
+message("Static libraries: " "${FFMPEG_STATIC_LIBRARIES}")
 
-find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h
-          PATHS               ${INSTALL_DIR})
-message("INCLUDEDIR")
-message(${AVCODEC_INCLUDE_DIR})
-find_path(AVFORMAT_INCLUDE_DIR libavformat/avformat.h
-          PATHS               ${INSTALL_DIR})
-find_path(SWSCALE_INCLUDE_DIR libswscale/swscale.h
-          PATHS               ${INSTALL_DIR})
-find_path(AVUTIL_INCLUDE_DIR libavutil/pixdesc.h
-          PATHS               ${INSTALL_DIR})
-set(FFMPEG_INCLUDE_DIRS AVCODEC_INCLUDE_DIR
-                        AVFORMAT_INCLUDE_DIR
-                        AVUTIL_INCLUDE_DIR
-                        SWSCALE_INCLUDE_DIR)
 
-find_library(AVCODEC_LIBRARY libavcodec.a
-          PATHS               ${INSTALL_DIR})
-find_library(AVFORMAT_LIBRARY libavformat.a
-          PATHS               ${INSTALL_DIR})
-find_library(SWSCALE_LIBRARY libswscale.a
-          PATHS               ${INSTALL_DIR})
-find_library(AVUTIL_LIBRARY libavutil.a
-          PATHS               ${INSTALL_DIR})
-set(FFMPEG_LIBRARIES AVCODEC_LIBRARY
-                     AVFORMAT_LIBRARY
-                     SWSCALE_LIBRARY
-                     AVUTIL_LIBRARY)
+#unset(AVCODEC_INCLUDE_DIR CACHE)
+#find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h
+#          PATHS               ${INSTALL_DIR}/include
+#          NO_DEFAULT_PATH)
+#message("INCLUDEDIR: " ${AVCODEC_INCLUDE_DIR})
+#
+#unset(AVFORMAT_INCLUDE_DIR CACHE)
+#find_path(AVFORMAT_INCLUDE_DIR libavformat/avformat.h
+#          PATHS               ${INSTALL_DIR}/include
+#          NO_DEFAULT_PATH)
+#unset(SWSCALE_INCLUDE_DIR CACHE)
+#find_path(SWSCALE_INCLUDE_DIR libswscale/swscale.h
+#          PATHS               ${INSTALL_DIR}/include
+#          NO_DEFAULT_PATH)
+#unset(AVUTIL_INCLUDE_DIR CACHE)
+#find_path(AVUTIL_INCLUDE_DIR libavutil/pixdesc.h
+#          PATHS               ${INSTALL_DIR}/include
+#          NO_DEFAULT_PATH)
+#set(FFMPEG_INCLUDE_DIRS ${AVCODEC_INCLUDE_DIR}
+#                        ${AVFORMAT_INCLUDE_DIR}
+#                        ${AVUTIL_INCLUDE_DIR}
+#                        ${SWSCALE_INCLUDE_DIR})
+#message("FFMPEG_INCLUDE_DIRS => ${FFMPEG_INCLUDE_DIRS}")
 
+#unset(AVUTIL_STATIC_LIBRARY CACHE)
+#find_library(AVCODEC_STATIC_LIBRARY libavcodec.a
+#          PATHS               ${INSTALL_DIR}/lib
+#          NO_DEFAULT_PATH)
+#unset(AVUTIL_STATIC_LIBRARY CACHE)
+#find_library(AVFORMAT_STATIC_LIBRARY libavformat.a
+#          PATHS               ${INSTALL_DIR}/lib
+#          NO_DEFAULT_PATH)
+#unset(AVUTIL_STATIC_LIBRARY CACHE)
+#find_library(SWSCALE_STATIC_LIBRARY libswscale.a
+#          PATHS               ${INSTALL_DIR}/lib
+#          NO_DEFAULT_PATH)
+#unset(AVUTIL_STATIC_LIBRARY CACHE)
+#find_library(AVUTIL_STATIC_LIBRARY libavutil.a
+#          PATHS               ${INSTALL_DIR}/lib
+#          NO_DEFAULT_PATH)
+#set(FFMPEG_STATIC_LIBRARIES ${AVCODEC_STATIC_LIBRARY}
+#                     ${AVFORMAT_STATIC_LIBRARY}
+#                     ${SWSCALE_STATIC_LIBRARY}
+#                     ${AVUTIL_STATIC_LIBRARY})
+#message("FFMPEG_STATIC_LIBRARIES => ${FFMPEG_STATIC_LIBRARIES}")
 
 # BINARY_DIR includes libavutil/avconfig.h
 #set(FFMPEG_INCLUDE_DIRS ${SOURCE_DIR} ${BINARY_DIR})

@@ -525,10 +525,14 @@ elseif(APPLE)
 
   if(HAS_FFMPEG)
     list(APPEND SMDATA_LINK_LIB
+                "${FFMPEG_STATIC_LIBRARIES}")
+    list(APPEND SMDATA_LINK_LIB
                 "${FFMPEG_LIBRARIES}")
   endif()
 else() # Unix / Linux TODO: Remember to find and locate the zip archive files.
   if(HAS_FFMPEG)
+    list(APPEND SMDATA_LINK_LIB
+                "${FFMPEG_STATIC_LIBRARIES}")
     list(APPEND SMDATA_LINK_LIB
                 "${FFMPEG_LIBRARIES}")
     if(NOT WITH_SYSTEM_ZLIB)
