@@ -49,10 +49,38 @@ externalproject_add(ffmpeg_ext
 )
 
 externalproject_get_property(ffmpeg_ext INSTALL_DIR)
-find_package(FFMPEG
-  COMPONENTS        avcodec avformat avutil
-  PATH              ${INSTALL_DIR}
-)
+#find_package(FFMPEG
+#  COMPONENTS        avcodec avformat avutil
+#  PATH              ${INSTALL_DIR}
+#)
+
+
+find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h
+          PATHS               ${INSTALL_DIR})
+find_path(AVFORMAT_INCLUDE_DIR libavformat/avformat.h
+          PATHS               ${INSTALL_DIR})
+find_path(SWSCALE_INCLUDE_DIR libswscale/swscale.h
+          PATHS               ${INSTALL_DIR})
+find_path(AVUTIL_INCLUDE_DIR libavutil/pixdesc.h
+          PATHS               ${INSTALL_DIR})
+set(FFMPEG_INCLUDE_DIRS AVCODEC_INCLUDE_DIR
+                        AVFORMAT_INCLUDE_DIR
+                        AVUTIL_INCLUDE_DIR
+                        SWSCALE_INCLUDE_DIR)
+
+find_library(AVCODEC_LIBRARY libavcodec.a
+          PATHS               ${INSTALL_DIR})
+find_library(AVFORMAT_LIBRARY libavformat.a
+          PATHS               ${INSTALL_DIR})
+find_library(SWSCALE_LIBRARY libswscale.a
+          PATHS               ${INSTALL_DIR})
+find_library(AVUTIL_LIBRARY libavutil.a
+          PATHS               ${INSTALL_DIR})
+set(FFMPEG_LIBRARIES AVCODEC_LIBRARY
+                     AVFORMAT_LIBRARY
+                     SWSCALE_LIBRARY
+                     AVUTIL_LIBRARY)
+
 
 # BINARY_DIR includes libavutil/avconfig.h
 #set(FFMPEG_INCLUDE_DIRS ${SOURCE_DIR} ${BINARY_DIR})
