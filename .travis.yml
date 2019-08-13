@@ -51,13 +51,14 @@ install:
 
 before_script:
   - cd Build
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export CFLAGS=-mmacosx-version-min=10.13; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export LDFLAGS=-mmacosx-version-min=10.13; fi
+  - echo ${SDKROOT}
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export SDKROOT=$(xcodebuild -version -sdk macosx Path); fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export CMAKE_MAKE_PROGRAM=Xcode; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then export CMAKE_MAKE_PROGRAM=Ninja; fi
   - cmake .. -G${CMAKE_MAKE_PROGRAM}
     -DWITH_SYSTEM_FFMPEG=OFF
     -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
+    -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
 
 script:
   - travis_wait cmake --build . --target ffmpeg_ext || true
@@ -65,4 +66,5 @@ script:
   - cmake ..
     -DWITH_SYSTEM_FFMPEG=OFF
     -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
+    -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
   - cmake --build .
