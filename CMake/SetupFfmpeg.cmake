@@ -19,6 +19,7 @@ if(MACOSX)
   find_program(NASM_EXE nasm
                PATHS /usr/bin /usr/local/bin /opt/local/bin)
   list(APPEND FFMPEG_CONFIGURE_OPTIONS "--x86asmexe=${NASM_EXE}")
+  SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -framework CoreMedia -framework CoreVideo -framework Security -framework VideoToolbox")
 endif()
 
 if(WITH_GPL_LIBS)
