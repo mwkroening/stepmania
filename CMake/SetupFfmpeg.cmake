@@ -56,9 +56,9 @@ find_package(FFMPEG REQUIRED
 # BINARY_DIR includes libavutil/avconfig.h
 #set(FFMPEG_INCLUDE_DIRS ${SOURCE_DIR} ${BINARY_DIR})
 #set(FFMPEG_STATIC_LIBRARY_DIRS ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavformat
-                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libswscale
-                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavcodec
-                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavutil)
+#                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libswscale
+#                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavcodec
+#                               ${BINARY_DIR}/doc/examples/pc-uninstalled/../../../libavutil)
 # TODO: Use target_link_directories when upgrading to cmake 3.13
 #link_directories(${FFMPEG_STATIC_LIBRARY_DIRS})
 #if(APPLE)
