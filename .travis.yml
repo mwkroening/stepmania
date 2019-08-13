@@ -56,6 +56,7 @@ before_script:
 
 script:
   - cmake --build . --target ffmpeg_ext || true
+  - cmake -U *
   - cmake ..
     -DWITH_SYSTEM_FFMPEG=OFF
     -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
