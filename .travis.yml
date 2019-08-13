@@ -45,7 +45,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
 
 install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install ffmpeg; fi
+#  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install ffmpeg; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install nasm; fi
 
 before_script:
