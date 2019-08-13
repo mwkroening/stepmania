@@ -50,9 +50,11 @@ externalproject_add(ffmpeg
 
 externalproject_get_property(ffmpeg SOURCE_DIR)
 externalproject_get_property(ffmpeg BINARY_DIR)
+externalproject_get_property(ffmpeg INSTALL_DIR)
 find_package(FFMPEG REQUIRED
   COMPONENTS        avcodec avformat avutil
-  PATH              ${BINARY_DIR}
+  PATH              ${INSTALL_DIR}
+                    ${BINARY_DIR}
                     ${SOURCE_DIR})
 
 # BINARY_DIR includes libavutil/avconfig.h
