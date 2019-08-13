@@ -59,9 +59,10 @@ externalproject_get_property(ffmpeg_ext INSTALL_DIR)
 set(ENV{PKG_CONFIG_PATH} ${INSTALL_DIR}/lib/pkgconfig)
 set(FFMPEG_FOUND 0)
 pkg_check_modules(FFMPEG libavcodec libavformat libavutil libswscale)
-message("Static library dirs: " "${FFMPEG_LIBRARY_DIRS}")
-message("Static libraries: " "${FFMPEG_STATIC_LIBRARIES}")
 link_directories(${FFMPEG_STATIC_LIBRARY_DIRS})
+message("FFMPEG_LIBRARY_DIRS => ${FFMPEG_LIBRARY_DIRS}")
+message("FFMPEG_STATIC_LIBRARIES => ${FFMPEG_STATIC_LIBRARIES}")
+message("FFMPEG_STATIC_LIBRARY_DIRS => ${FFMPEG_STATIC_LIBRARY_DIRS}")
 
 #unset(AVCODEC_INCLUDE_DIR CACHE)
 #find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h
