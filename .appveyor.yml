@@ -41,7 +41,7 @@ before_build:
 #build:
 #  project: C:\Repos\StepMania\Build\StepMania.sln
 #  verbosity: normal
-after_build:
+build_script:
 - cmd: >-
     msbuild --help
 
