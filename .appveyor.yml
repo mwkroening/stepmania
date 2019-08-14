@@ -44,11 +44,15 @@ before_build:
 after_build:
 - cmd: >-
     msbuild --help
-    msbuild "C:\Repos\StepMania\Build\StepMania.sln" /maxcpucount:4 /verbosity:normal
+
     cmake --build StepMania.sln --target ffmpeg_ext --config Debug -- StepMania.sln
+
     cmake -U * ..
+
     cmake ..
+
     cmake --build StepMania.sln --config Debug -- StepMania.sln
+
     rem msbuild "C:\Repos\StepMania\Build\StepMania.sln" /maxcpucount:4 /verbosity:normal
 artifacts:
   - path: Build/*.exe
