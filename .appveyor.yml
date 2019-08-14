@@ -27,6 +27,8 @@ install:
     choco install cmake
 
     choco install nsis -version 2.46.0.20150406
+
+    vcpkg install ffmpeg:x86-windows
 before_build:
 - cmd: >-
     choco upgrade cmake
@@ -35,7 +37,7 @@ before_build:
 
     cd Build
 
-    cmake -G "Visual Studio 14 2015" ..
+    cmake -G "Visual Studio 14 2015" -DCMAKE_TOOLCHAIN_FILE="c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake" ..
 
     dir
 #build:
@@ -43,12 +45,6 @@ before_build:
 #  verbosity: normal
 build_script:
 - cmd: >-
-    cmake --build . --target ffmpeg_ext
-
-    rem cmake -U * ..
-
-    cmake ..
-
     cmake --build .
 
     rem msbuild "C:\Repos\StepMania\Build\StepMania.sln" /maxcpucount:4 /verbosity:normal

@@ -279,7 +279,8 @@ if(WIN32)
     include("${SM_CMAKE_DIR}/SetupFfmpeg.cmake")
     set(HAS_FFMPEG TRUE)
   else()
-    include("${SM_CMAKE_DIR}/SetupFfmpeg.cmake")
+    include("FindFFMPEG.cmake")
+    #include("${SM_CMAKE_DIR}/SetupFfmpeg.cmake")
     set(HAS_FFMPEG TRUE)
 #    # FFMPEG...it can be evil.
 #    find_library(LIB_SWSCALE

@@ -471,7 +471,7 @@ endif()
 if(WIN32)
   list(APPEND SMDATA_LINK_LIB
               # The misc libraries are here.
-              "${FFMPEG_STATIC_LIBRARIES}")
+              "${FFMPEG_LIBRARIES}")
 
   list(APPEND SMDATA_LINK_LIB
               "dbghelp.lib"
@@ -479,6 +479,8 @@ if(WIN32)
               "hid.lib")
 
   list(APPEND SM_INCLUDE_DIRS "${FFMPEG_INCLUDE_DIRS}")
+
+  link_directories("${FFMPEG_LIBRARY_DIRS}")
 
   get_filename_component(DIRECTX_LIBRARY_DIR "${DIRECTX_LIBRARIES}" DIRECTORY)
 
