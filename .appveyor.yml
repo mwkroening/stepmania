@@ -43,6 +43,8 @@ before_build:
 #  verbosity: normal
 after_build:
 - cmd: >-
+    msbuild --help
+    msbuild "C:\Repos\StepMania\Build\StepMania.sln" /maxcpucount:4 /verbosity:normal
     cmake --build StepMania.sln --target ffmpeg_ext --config Debug -- StepMania.sln
     cmake -U * ..
     cmake ..
