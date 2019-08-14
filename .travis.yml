@@ -8,6 +8,7 @@ notifications:
 os:
   - linux
   - osx
+  - windows
 
 env:
   - BUILD_TYPE=Release
@@ -48,7 +49,8 @@ before_install:
 install:
 #  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install ffmpeg; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install nasm; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install ninja; fi
+#  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install ninja; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then choco install nsis -version 2.46.0.20150406; fi
 
 before_script:
   - cd Build
@@ -56,7 +58,8 @@ before_script:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export MACOSX_DEPLOYMENT_TARGET=10.13; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export CMAKE_MAKE_PROGRAM=Xcode; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then export CMAKE_MAKE_PROGRAM=Ninja; fi
-  - cmake .. -G${CMAKE_MAKE_PROGRAM}
+  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then export CMAKE_MAKE_PROGRAM="Visual Studio 15 2017"; fi
+  - cmake .. -G"${CMAKE_MAKE_PROGRAM}"
     -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX}
 
 script:
