@@ -481,6 +481,8 @@ if(WIN32)
               "setupapi.lib"
               "hid.lib")
 
+  list(APPEND SM_INCLUDE_DIRS "${SM_EXTERN_DIR}/ffmpeg/lib")
+
   get_filename_component(DIRECTX_LIBRARY_DIR "${DIRECTX_LIBRARIES}" DIRECTORY)
 
   sm_add_link_flag("${SM_EXE_NAME}" "/LIBPATH:\"${DIRECTX_LIBRARY_DIR}\"")
