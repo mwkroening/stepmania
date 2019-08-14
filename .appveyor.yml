@@ -43,6 +43,12 @@ before_build:
 #  verbosity: normal
 build_script:
 - cmd: >-
+    cmake --build . --target ffmpeg_ext
+
+    cmake -U * ..
+
+    cmake ..
+
     cmake --build .
 
     rem msbuild "C:\Repos\StepMania\Build\StepMania.sln" /maxcpucount:4 /verbosity:normal
