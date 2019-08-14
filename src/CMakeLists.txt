@@ -481,7 +481,7 @@ if(WIN32)
               "setupapi.lib"
               "hid.lib")
 
-  list(APPEND SM_INCLUDE_DIRS "${SM_EXTERN_DIR}/ffmpeg/lib")
+  list(APPEND SM_INCLUDE_DIRS "${SM_EXTERN_DIR}/ffmpeg/include")
 
   get_filename_component(DIRECTX_LIBRARY_DIR "${DIRECTX_LIBRARIES}" DIRECTORY)
 
