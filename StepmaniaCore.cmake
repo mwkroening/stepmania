@@ -279,30 +279,32 @@ if(WIN32)
     include("${SM_CMAKE_DIR}/SetupFfmpeg.cmake")
     set(HAS_FFMPEG TRUE)
   else()
-    # FFMPEG...it can be evil.
-    find_library(LIB_SWSCALE
-                 NAMES "swscale"
-                 PATHS "${SM_EXTERN_DIR}/ffmpeg/lib"
-                 NO_DEFAULT_PATH)
-    get_filename_component(LIB_SWSCALE ${LIB_SWSCALE} NAME)
-
-    find_library(LIB_AVCODEC
-                 NAMES "avcodec"
-                 PATHS "${SM_EXTERN_DIR}/ffmpeg/lib"
-                 NO_DEFAULT_PATH)
-    get_filename_component(LIB_AVCODEC ${LIB_AVCODEC} NAME)
-
-    find_library(LIB_AVFORMAT
-                 NAMES "avformat"
-                 PATHS "${SM_EXTERN_DIR}/ffmpeg/lib"
-                 NO_DEFAULT_PATH)
-    get_filename_component(LIB_AVFORMAT ${LIB_AVFORMAT} NAME)
-
-    find_library(LIB_AVUTIL
-                 NAMES "avutil"
-                 PATHS "${SM_EXTERN_DIR}/ffmpeg/lib"
-                 NO_DEFAULT_PATH)
-    get_filename_component(LIB_AVUTIL ${LIB_AVUTIL} NAME)
+    include("${SM_CMAKE_DIR}/SetupFfmpeg.cmake")
+    set(HAS_FFMPEG TRUE)
+#    # FFMPEG...it can be evil.
+#    find_library(LIB_SWSCALE
+#                 NAMES "swscale"
+#                 PATHS "${SM_EXTERN_DIR}/ffmpeg/lib"
+#                 NO_DEFAULT_PATH)
+#    get_filename_component(LIB_SWSCALE ${LIB_SWSCALE} NAME)
+#
+#    find_library(LIB_AVCODEC
+#                 NAMES "avcodec"
+#                 PATHS "${SM_EXTERN_DIR}/ffmpeg/lib"
+#                 NO_DEFAULT_PATH)
+#    get_filename_component(LIB_AVCODEC ${LIB_AVCODEC} NAME)
+#
+#    find_library(LIB_AVFORMAT
+#                 NAMES "avformat"
+#                 PATHS "${SM_EXTERN_DIR}/ffmpeg/lib"
+#                 NO_DEFAULT_PATH)
+#    get_filename_component(LIB_AVFORMAT ${LIB_AVFORMAT} NAME)
+#
+#    find_library(LIB_AVUTIL
+#                 NAMES "avutil"
+#                 PATHS "${SM_EXTERN_DIR}/ffmpeg/lib"
+#                 NO_DEFAULT_PATH)
+#    get_filename_component(LIB_AVUTIL ${LIB_AVUTIL} NAME)
   endif()
 elseif(MACOSX)
   if(WITH_FFMPEG AND NOT WITH_SYSTEM_FFMPEG)

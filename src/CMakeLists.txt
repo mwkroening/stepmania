@@ -471,22 +471,19 @@ endif()
 if(WIN32)
   list(APPEND SMDATA_LINK_LIB
               # The misc libraries are here.
-              "${LIB_SWSCALE}"
-              "${LIB_AVCODEC}"
-              "${LIB_AVFORMAT}"
-              "${LIB_AVUTIL}")
+              "${FFMPEG_STATIC_LIBRARIES}")
 
   list(APPEND SMDATA_LINK_LIB
               "dbghelp.lib"
               "setupapi.lib"
               "hid.lib")
 
-  list(APPEND SM_INCLUDE_DIRS "${SM_EXTERN_DIR}/ffmpeg/include")
+  list(APPEND SM_INCLUDE_DIRS "${FFMPEG_INCLUDE_DIRS}")
 
   get_filename_component(DIRECTX_LIBRARY_DIR "${DIRECTX_LIBRARIES}" DIRECTORY)
 
   sm_add_link_flag("${SM_EXE_NAME}" "/LIBPATH:\"${DIRECTX_LIBRARY_DIR}\"")
-  sm_add_link_flag("${SM_EXE_NAME}" "/LIBPATH:\"${SM_EXTERN_DIR}/ffmpeg/lib\"")
+#  sm_add_link_flag("${SM_EXE_NAME}" "/LIBPATH:\"${SM_EXTERN_DIR}/ffmpeg/lib\"")
   sm_add_link_flag("${SM_EXE_NAME}"
                    "/LIBPATH:\"${SM_SRC_DIR}/archutils/Win32/ddk\"")
   sm_add_link_flag("${SM_EXE_NAME}" "/ERRORREPORT:SEND")

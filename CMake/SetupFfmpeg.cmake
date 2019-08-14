@@ -1,3 +1,4 @@
+if(UNIX)
 list(APPEND FFMPEG_CONFIGURE_OPTIONS
             "--cc=$ENV{CC}"
             "--host-cflags=$ENV{CFLAGS}"
@@ -64,7 +65,63 @@ link_directories(${FFMPEG_STATIC_LIBRARY_DIRS})
 message("FFMPEG_LIBRARY_DIRS => ${FFMPEG_LIBRARY_DIRS}")
 message("FFMPEG_STATIC_LIBRARIES => ${FFMPEG_STATIC_LIBRARIES}")
 message("FFMPEG_STATIC_LIBRARY_DIRS => ${FFMPEG_STATIC_LIBRARY_DIRS}")
+else()
+externalproject_add(ffmpeg_ext
+  URL               https://ffmpeg.zeranoe.com/builds/win64/dev/ffmpeg-4.2-win64-dev.zip
+  URL_HASH          SHA256=1beb19f168778fb631621c2eead96f9791fd6b63456ddc20ded5f2693cbdb5fc
+  CONFIGURE_COMMAND ""
+  BUILD_COMMAND     ""
+  INSTALL_COMMAND   ""
+  EXCLUDE_FROM_ALL  ON
+)
 
+externalproject_get_property(ffmpeg_ext SOURCE_DIR)
+
+unset(AVCODEC_INCLUDE_DIR CACHE)
+find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h
+          PATHS               ${SOURCE_DIR}/include
+          NO_DEFAULT_PATH)
+unset(AVFORMAT_INCLUDE_DIR CACHE)
+find_path(AVFORMAT_INCLUDE_DIR libavformat/avformat.h
+          PATHS               ${SOURCE_DIR}/include
+          NO_DEFAULT_PATH)
+unset(SWSCALE_INCLUDE_DIR CACHE)
+find_path(SWSCALE_INCLUDE_DIR libswscale/swscale.h
+          PATHS               ${SOURCE_DIR}/include
+          NO_DEFAULT_PATH)
+unset(AVUTIL_INCLUDE_DIR CACHE)
+find_path(AVUTIL_INCLUDE_DIR libavutil/pixdesc.h
+          PATHS               ${SOURCE_DIR}/include
+          NO_DEFAULT_PATH)
+set(FFMPEG_INCLUDE_DIRS ${AVCODEC_INCLUDE_DIR}
+                        ${AVFORMAT_INCLUDE_DIR}
+                        ${AVUTIL_INCLUDE_DIR}
+                        ${SWSCALE_INCLUDE_DIR})
+message("FFMPEG_INCLUDE_DIRS => ${FFMPEG_INCLUDE_DIRS}")
+
+unset(AVUTIL_STATIC_LIBRARY CACHE)
+find_library(AVCODEC_STATIC_LIBRARY avcodec
+          PATHS               ${SOURCE_DIR}/lib
+          NO_DEFAULT_PATH)
+unset(AVUTIL_STATIC_LIBRARY CACHE)
+find_library(AVFORMAT_STATIC_LIBRARY avformat
+          PATHS               ${SOURCE_DIR}/lib
+          NO_DEFAULT_PATH)
+unset(AVUTIL_STATIC_LIBRARY CACHE)
+find_library(SWSCALE_STATIC_LIBRARY swscale
+          PATHS               ${SOURCE_DIR}/lib
+          NO_DEFAULT_PATH)
+unset(AVUTIL_STATIC_LIBRARY CACHE)
+find_library(AVUTIL_STATIC_LIBRARY avutil
+          PATHS               ${SOURCE_DIR}/lib
+          NO_DEFAULT_PATH)
+set(FFMPEG_STATIC_LIBRARIES ${AVCODEC_STATIC_LIBRARY}
+                     ${AVFORMAT_STATIC_LIBRARY}
+                     ${SWSCALE_STATIC_LIBRARY}
+                     ${AVUTIL_STATIC_LIBRARY})
+message("FFMPEG_STATIC_LIBRARIES => ${FFMPEG_STATIC_LIBRARIES}")
+
+endif()
 #unset(AVCODEC_INCLUDE_DIR CACHE)
 #find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h
 #          PATHS               ${INSTALL_DIR}/include
