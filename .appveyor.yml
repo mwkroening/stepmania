@@ -43,8 +43,6 @@ before_build:
 #  verbosity: normal
 build_script:
 - cmd: >-
-    msbuild --help
-
     cmake --build StepMania.sln --target ffmpeg_ext --config Debug -- StepMania.sln
 
     cmake -U * ..
