@@ -36,15 +36,17 @@ before_build:
     cd Build
 
     cmake -G "Visual Studio 14 2015" ..
+
+    dir
 #build:
 #  project: C:\Repos\StepMania\Build\StepMania.sln
 #  verbosity: normal
 after_build:
 - cmd: >-
-    cmake --build . --target ffmpeg_ext
+    cmake --build . --target ffmpeg_ext --config Debug
     cmake -U * ..
     cmake ..
-    cmake --build .
+    cmake --build . --config Debug
     rem msbuild "C:\Repos\StepMania\Build\StepMania.sln" /maxcpucount:4 /verbosity:normal
 artifacts:
   - path: Build/*.exe
