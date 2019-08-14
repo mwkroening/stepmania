@@ -35,13 +35,17 @@ before_build:
 
     cd Build
 
-    cmake -G "Visual Studio 14 2015" -T "v140_xp" -DWITH_IRC_POST_HOOK=ON ..
-build:
-  project: C:\Repos\StepMania\Build\StepMania.sln
-  verbosity: normal
+    cmake -G "Visual Studio 14 2015" ..
+#build:
+#  project: C:\Repos\StepMania\Build\StepMania.sln
+#  verbosity: normal
 after_build:
 - cmd: >-
-    msbuild "C:\Repos\StepMania\Build\StepMania.sln" /maxcpucount:4 /verbosity:normal
+    cmake --build . --target ffmpeg_ext
+    cmake -U * ..
+    cmake ..
+    cmake --build .
+    rem msbuild "C:\Repos\StepMania\Build\StepMania.sln" /maxcpucount:4 /verbosity:normal
 artifacts:
   - path: Build/*.exe
     type: exe
