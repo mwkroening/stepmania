@@ -67,8 +67,8 @@ message("FFMPEG_STATIC_LIBRARIES => ${FFMPEG_STATIC_LIBRARIES}")
 message("FFMPEG_STATIC_LIBRARY_DIRS => ${FFMPEG_STATIC_LIBRARY_DIRS}")
 else()
 externalproject_add(ffmpeg_ext
-  URL               https://ffmpeg.zeranoe.com/builds/win64/dev/ffmpeg-4.2-win64-dev.zip
-  URL_HASH          SHA256=1beb19f168778fb631621c2eead96f9791fd6b63456ddc20ded5f2693cbdb5fc
+  URL               https://ffmpeg.zeranoe.com/builds/win32/dev/ffmpeg-4.2-win32-dev.zip
+  URL_HASH          SHA256=1217a9d78d0a1f39bec2fb3287750e3fb371fec566e052f109c60417ff958463
   CONFIGURE_COMMAND ""
   BUILD_COMMAND     ""
   INSTALL_COMMAND   ""
