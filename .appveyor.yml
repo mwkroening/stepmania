@@ -45,7 +45,7 @@ build_script:
 - cmd: >-
     cmake --build . --target ffmpeg_ext
 
-    cmake -U * ..
+    rem cmake -U * ..
 
     cmake ..
 
