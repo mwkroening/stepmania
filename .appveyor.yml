@@ -8,6 +8,7 @@ skip_tags: true
 os: Visual Studio 2015
 configuration: Release
 shallow_clone: false
+cache: c:\tools\vcpkg\installed\
 clone_depth: 1
 clone_folder: C:\Repos\StepMania
 init:
