@@ -36,7 +36,9 @@ install: >-
 before_build: >-
   cd Build
 
-  cmake -G "Visual Studio 14 2015" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake ..
+  cmake -G "Visual Studio 14 2015" ..
+
+  rem cmake -G "Visual Studio 14 2015" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake ..
 #build:
 #  project: C:\Repos\StepMania\Build\StepMania.sln
 #  verbosity: normal
