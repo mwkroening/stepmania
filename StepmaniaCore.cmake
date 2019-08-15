@@ -279,7 +279,7 @@ if(WIN32)
     include("${SM_CMAKE_DIR}/SetupFfmpeg.cmake")
     set(HAS_FFMPEG TRUE)
   else()
-    include("FindFFMPEG.cmake")
+    include("$ENV{VCPKG_ROOT}/ports/ffmpeg/FindFFMPEG.cmake")
     #include("${SM_CMAKE_DIR}/SetupFfmpeg.cmake")
     set(HAS_FFMPEG TRUE)
 #    # FFMPEG...it can be evil.
