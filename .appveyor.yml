@@ -36,9 +36,11 @@ install: >-
 before_build: >-
   cd Build
 
-  cmake -G "Visual Studio 14 2015" ..
+  set VCPKG_KEEP_ENV_VARS=DXSDK_DIR
 
-  rem cmake -G "Visual Studio 14 2015" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake ..
+  rem cmake -G "Visual Studio 14 2015" ..
+
+  cmake -G "Visual Studio 14 2015" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake ..
 #build:
 #  project: C:\Repos\StepMania\Build\StepMania.sln
 #  verbosity: normal
