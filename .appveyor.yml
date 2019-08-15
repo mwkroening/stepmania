@@ -10,7 +10,6 @@ configuration: Release
 shallow_clone: false
 clone_depth: 1
 clone_folder: C:\Repos\StepMania
-cache: c:\tools\vcpkg\installed\
 init:
 - cmd: >-
     git config --global credential.helper store
@@ -23,6 +22,7 @@ init:
 
     set SM_SETUP_EXE_NAME=StepMania-5.1-git-%SM_COMMIT_SHORT%-win32.exe
 
+    echo %DXSDK_DIR%
 install: >-
   cd C:\Tools\vcpkg
 
