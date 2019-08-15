@@ -43,7 +43,7 @@ artifacts:
     type: exe
 on_success:
 - cmd: >-
-    echo "Posting to IRC now..."
+    echo "Posting to IRCs now..."
 
     rem C:\Repos\StepMania\Program\irc-reporter.exe "%APPVEYOR_REPO_NAME%" "%APPVEYOR_BUILD_VERSION%"  "%SM_COMMIT_SHORT%" "%APPVEYOR_REPO_COMMIT_AUTHOR%" "%APPVEYOR_BUILD_URL%" "success"
 on_failure:
