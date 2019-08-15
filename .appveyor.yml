@@ -31,7 +31,6 @@ install:
   - vcpkg install ffmpeg:x86-windows
 before_build:
   - cd Build
-  - export VCPKG_KEEP_ENV_VARS=DXSDK_DIR
   - cmake -G "Visual Studio 14 2015" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake ..
 #build:
 #  project: C:\Repos\StepMania\Build\StepMania.sln
