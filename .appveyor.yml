@@ -23,29 +23,21 @@ init:
     set SM_SETUP_EXE_NAME=StepMania-5.1-git-%SM_COMMIT_SHORT%-win32.exe
 
     echo %DXSDK_DIR%
-install: >-
-  cd C:\Tools\vcpkg
-
-  git pull
-
-  .\bootstrap-vcpkg.bat
-
-  cd %APPVEYOR_BUILD_FOLDER%
-
-  vcpkg install ffmpeg:x86-windows
-before_build: >-
-  cd Build
-
-  set VCPKG_KEEP_ENV_VARS=DXSDK_DIR
-
-  rem cmake -G "Visual Studio 14 2015" ..
-
-  cmake -G "Visual Studio 14 2015" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake ..
+install:
+  - cd C:\Tools\vcpkg
+  - git pull
+  - .\bootstrap-vcpkg.bat
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - vcpkg install ffmpeg:x86-windows
+before_build:
+  - cd Build
+  - export VCPKG_KEEP_ENV_VARS=DXSDK_DIR
+  - cmake -G "Visual Studio 14 2015" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake ..
 #build:
 #  project: C:\Repos\StepMania\Build\StepMania.sln
 #  verbosity: normal
-build_script: >-
-  cmake --build .
+build_script:
+  - cmake --build .
 artifacts:
   - path: Build/*.exe
     type: exe
