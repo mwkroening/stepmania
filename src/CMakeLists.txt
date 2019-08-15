@@ -469,6 +469,27 @@ if(WITH_OGG)
 endif()
 
 if(WIN32)
+
+  find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h)
+  find_path(AVFORMAT_INCLUDE_DIR libavformat/avformat.h)
+  find_path(SWSCALE_INCLUDE_DIR libswscale/swscale.h)
+  find_path(AVUTIL_INCLUDE_DIR libavutil/pixdesc.h)
+  set(FFMPEG_INCLUDE_DIRS ${AVCODEC_INCLUDE_DIR}
+                          ${AVFORMAT_INCLUDE_DIR}
+                          ${AVUTIL_INCLUDE_DIR}
+                          ${SWSCALE_INCLUDE_DIR})
+  message("FFMPEG_INCLUDE_DIRS => ${FFMPEG_INCLUDE_DIRS}")
+
+  find_library(AVCODEC_LIBRARY avcodec)
+  find_library(AVFORMAT_LIBRARY avformat)
+  find_library(SWSCALE_LIBRARY swscale)
+  find_library(AVUTIL_LIBRARY avutil)
+  set(FFMPEG_LIBRARIES ${AVCODEC_LIBRARY}
+                       ${AVFORMAT_LIBRARY}
+                       ${SWSCALE_LIBRARY}
+                       ${AVUTIL_LIBRARY})
+  message("FFMPEG_LIBRARIES => ${FFMPEG_LIBRARIES}")
+
   list(APPEND SMDATA_LINK_LIB
               # The misc libraries are here.
               "${FFMPEG_LIBRARIES}")
@@ -480,7 +501,7 @@ if(WIN32)
 
   list(APPEND SM_INCLUDE_DIRS "${FFMPEG_INCLUDE_DIRS}")
 
-  link_directories("${FFMPEG_LIBRARY_DIRS}")
+  #link_directories("${FFMPEG_LIBRARY_DIRS}")
 
   get_filename_component(DIRECTX_LIBRARY_DIR "${DIRECTX_LIBRARIES}" DIRECTORY)
 
