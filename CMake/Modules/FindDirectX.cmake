@@ -1,41 +1,18 @@
-# From the CMake wiki, get the DirectX version needed. This assumes default
-# directories.
+# Defines:
+#  DirectX_D3D9_INCLUDE_FOUND
+#  DirectX_D3D9_INCLUDE_DIR
 
-# Once loaded, the following are defined: DIRECTX_FOUND DIRECTX_INCLUDE_DIR
-# DIRECTX_LIBRARIES
+include(CheckIncludeFileCXX)
+include(FindPackageMessage)
 
-if(NOT WIN32)
-  return()
-endif()
+if(WIN32)
+  macro (find_winsdk_header var_name header)
+    set (include_dir_var "DirectX_${var_name}_INCLUDE_DIR")
+    set (include_found_var "DirectX_${var_name}_INCLUDE_FOUND")
+    check_include_file_cxx (${header} ${include_found_var})
+    set (${include_dir_var})
+    mark_as_advanced (${include_found_var})
+  endmacro ()
 
-if(NOT EXISTS "$ENV{DXSDK_DIR}")
-  message(FATAL_ERROR "Could not find Microsoft DirectX SDK installation!")
-endif()
-
-set(DIRECTX_INCLUDE_SEARCH_PATHS
-    # TODO: Do not be limited to x86 in the future.
-    "$ENV{DXSDK_DIR}/Include")
-
-set(DIRECTX_LIBRARY_SEARCH_PATHS
-    # TODO: Do not be limited to x86 in the future.
-    "$ENV{DXSDK_DIR}/Lib/x86")
-
-find_path(DIRECTX_INCLUDE_DIR
-          NAMES "DxErr.h"
-          PATHS ${DIRECTX_INCLUDE_SEARCH_PATHS}
-          DOC "Where can DxErr.h be found?")
-
-find_library(DIRECTX_LIBRARIES
-             NAMES "DxErr.lib" "d3dx9.lib"
-             PATHS ${DIRECTX_LIBRARY_SEARCH_PATHS}
-             DOC "Where can the DX libraries be found?")
-
-include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(DIRECTX
-                                  DEFAULT_MSG
-                                  DIRECTX_INCLUDE_DIR
-                                  DIRECTX_LIBRARIES)
-
-if(DIRECTX_FOUND)
-  mark_as_advanced(DIRECTX_INCLUDE_DIR DIRECTX_LIBRARIES)
+  find_winsdk_header(D3D9 d3d9.h)
 endif()

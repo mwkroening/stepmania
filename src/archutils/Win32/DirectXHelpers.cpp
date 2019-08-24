@@ -3,14 +3,6 @@
 #include "RageUtil.h"
 
 #include <windows.h>
-#if defined(USE_DXERR9)
-#include <dxerr9.h>
-#else
-#include <dxerr.h>
-#endif
-#if defined(_MSC_VER)
-#  pragma comment(lib, "dxerr.lib")
-#endif
 
 RString hr_ssprintf( int hr, const char *fmt, ... )
 {
@@ -19,12 +11,33 @@ RString hr_ssprintf( int hr, const char *fmt, ... )
 	RString s = vssprintf( fmt, va );
 	va_end(va);
 
-#if defined(USE_DXERR9)
-	const char *szError = DXGetErrorString9( hr );
-#else
-	const char *szError = DXGetErrorString( hr );
-#endif
-	return s + ssprintf( " (%s)", szError );
+    LPTSTR errorText = nullptr;
+
+	FormatMessage(
+		FORMAT_MESSAGE_FROM_SYSTEM
+		|FORMAT_MESSAGE_ALLOCATE_BUFFER
+		|FORMAT_MESSAGE_IGNORE_INSERTS,
+		nullptr,
+		hr,
+		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+		(LPTSTR)&errorText,
+		0,
+		nullptr);
+
+    RString errorString;
+
+	if ( errorText )
+	{
+		errorString = errorText;
+		LocalFree(errorText);
+		errorText = NULL;
+	}
+	else
+	{
+		errorString = "Error while formatting error string.";
+	}
+
+	return s + ssprintf( " (%s)", errorString );
 }
 
 /*
