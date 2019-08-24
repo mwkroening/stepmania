@@ -507,5 +507,7 @@ else()
 
   disable_project_warnings("tomcrypt")
 
+  target_include_directories(tomcrypt PRIVATE ${SM_SRC_DIR}/libtommath)
+
   target_include_directories("tomcrypt" PUBLIC "${TOMDIR}/src/headers")
 endif()
