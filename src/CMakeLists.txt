@@ -114,6 +114,7 @@ set_target_properties("${SM_EXE_NAME}"
 
 # Required for usage of tomcrypt and tommath.
 sm_add_compile_definition("${SM_EXE_NAME}" LTM_DESC)
+sm_add_compile_definition("${SM_EXE_NAME}" USE_LTM)
 
 if(WITH_PORTABLE_TOMCRYPT)
   sm_add_compile_definition("${SM_EXE_NAME}" LTC_NO_ASM)
@@ -681,6 +682,9 @@ elseif(NOT WITH_SYSTEM_PNG)
   list(APPEND SM_INCLUDE_DIRS "${SM_EXTERN_DIR}/libpng/include")
 endif()
 
+if(NOT WITH_SYSTEM_TOMCRYPT)
+  list(APPEND SM_INCLUDE_DIRS "${SM_SRC_DIR}/libtomcrypt/src/headers")
+endif()
 
 target_include_directories("${SM_EXE_NAME}" PUBLIC ${SM_INCLUDE_DIRS})
 
