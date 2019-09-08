@@ -4,4 +4,4 @@ cmake_minimum_required(VERSION 3.10)
 project(IteratorBackInserterDemo)
 
 # add the executable
-add_executable(IteratorBackInserterDemo iterator_back_inserter.cpp)
+add_executable(IteratorBackInserterDemo iterator_back_inserter.cpp JsonUtil.cpp)
