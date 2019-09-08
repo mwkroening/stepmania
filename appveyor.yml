@@ -1,0 +1,10 @@
+before_build:
+  - mkdir build
+  - cd build
+  - cmake ..
+
+build:
+  project: build\IteratorBackInserterDemo.sln
+
+test_script:
+  - .\Debug\IteratorBackInserterDemo.exe
