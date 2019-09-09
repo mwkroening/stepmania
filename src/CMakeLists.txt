@@ -422,12 +422,6 @@ else()
   list(APPEND SMDATA_LINK_LIB "tomcrypt")
 endif()
 
-if(WITH_SYSTEM_TOMMATH)
-  list(APPEND SMDATA_LINK_LIB ${TOMMATH_LIBRARY})
-else()
-  list(APPEND SMDATA_LINK_LIB "tommath")
-endif()
-
 if(WITH_SYSTEM_JPEG)
   sm_add_compile_definition("${SM_EXE_NAME}" SYSTEM_JPEGLIB)
   list(APPEND SMDATA_LINK_LIB ${JPEG_LIBRARIES})

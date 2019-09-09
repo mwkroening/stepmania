@@ -80,7 +80,6 @@ static const int KEY_LENGTH = 1024;
  */
 
 static PRNGWrapper *g_pPRNG = nullptr;
-ltc_math_descriptor ltc_mp = ltm_desc;
 
 CryptManager::CryptManager()
 {
