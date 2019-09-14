@@ -1045,11 +1045,11 @@ void Profile::IncrementCategoryPlayCount( StepsType st, RankingCategory rc )
 
 
 // Loading and saving
-#define WARN_PARSER	ShowWarningOrTrace( __FILE__, __LINE__, "Error parsing file.", true )
+#define WARN_PARSER	ShowWarningOrTrace( __FILENAME__, __LINE__, "Error parsing file.", true )
 #define WARN_AND_RETURN { WARN_PARSER; return; }
 #define WARN_AND_CONTINUE { WARN_PARSER; continue; }
 #define WARN_AND_BREAK { WARN_PARSER; break; }
-#define WARN_M(m)	ShowWarningOrTrace( __FILE__, __LINE__, RString("Error parsing file: ")+(m), true )
+#define WARN_M(m)	ShowWarningOrTrace( __FILENAME__, __LINE__, RString("Error parsing file: ")+(m), true )
 #define WARN_AND_RETURN_M(m) { WARN_M(m); return; }
 #define WARN_AND_CONTINUE_M(m) { WARN_M(m); continue; }
 #define WARN_AND_BREAK_M(m) { WARN_M(m); break; }

@@ -27,7 +27,7 @@ Bookkeeper::~Bookkeeper()
 	WriteToDisk();
 }
 
-#define WARN_AND_RETURN { LOG->Warn("Error parsing at %s:%d",__FILE__,__LINE__); return; }
+#define WARN_AND_RETURN { LOG->Warn("Error parsing at %s:%d",__FILENAME__,__LINE__); return; }
 
 void Bookkeeper::ClearAll()
 {

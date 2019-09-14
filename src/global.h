@@ -60,15 +60,19 @@ using namespace std;
 #undef ASSERT
 #endif
 
+#include <string.h>
+
+#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+
 /** @brief RageThreads defines (don't pull in all of RageThreads.h here) */
 namespace Checkpoints
 {
 	void SetCheckpoint( const char *file, int line, const char *message );
 }
 /** @brief Set a checkpoint with no message. */
-#define CHECKPOINT (Checkpoints::SetCheckpoint(__FILE__, __LINE__, nullptr))
+#define CHECKPOINT (Checkpoints::SetCheckpoint(__FILENAME__, __LINE__, nullptr))
 /** @brief Set a checkpoint with a specified message. */
-#define CHECKPOINT_M(m) (Checkpoints::SetCheckpoint(__FILE__, __LINE__, m))
+#define CHECKPOINT_M(m) (Checkpoints::SetCheckpoint(__FILENAME__, __LINE__, m))
 
 
 /**
@@ -115,9 +119,9 @@ void NORETURN sm_crash( const char *reason = "Internal error" );
 #define DEFAULT_FAIL(i) 	default: FAIL_M( ssprintf("%s = %i", #i, (i)) )
 
 void ShowWarningOrTrace( const char *file, int line, const char *message, bool bWarning ); // don't pull in LOG here
-#define WARN(MESSAGE) (ShowWarningOrTrace(__FILE__, __LINE__, MESSAGE, true))
+#define WARN(MESSAGE) (ShowWarningOrTrace(__FILENAME__, __LINE__, MESSAGE, true))
 #if !defined(CO_EXIST_WITH_MFC)
-#define TRACE(MESSAGE) (ShowWarningOrTrace(__FILE__, __LINE__, MESSAGE, false))
+#define TRACE(MESSAGE) (ShowWarningOrTrace(__FILENAME__, __LINE__, MESSAGE, false))
 #endif
 
 #ifdef DEBUG
@@ -136,7 +140,7 @@ void ShowWarningOrTrace( const char *file, int line, const char *message, bool b
  * generating unique identifiers in other macros.  */
 #define SM_UNIQUE_NAME3(x,line) x##line
 #define SM_UNIQUE_NAME2(x,line) SM_UNIQUE_NAME3(x, line)
-#define SM_UNIQUE_NAME(x) SM_UNIQUE_NAME2(x, __LINE__)	
+#define SM_UNIQUE_NAME(x) SM_UNIQUE_NAME2(x, __LINE__)
 
 template <bool> struct CompileAssert;
 template <> struct CompileAssert<true> { };

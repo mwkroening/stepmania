@@ -1,6 +1,8 @@
 #ifndef RAGE_THREADS_H
 #define RAGE_THREADS_H
 
+#include "global.h"
+
 struct ThreadSlot;
 class RageTimer;
 /** @brief Thread, mutex, semaphore, and event classes. */
@@ -79,8 +81,6 @@ namespace Checkpoints
 	void GetLogs( char *pBuf, int iSize, const char *delim );
 };
 
-#define CHECKPOINT_M(m) (Checkpoints::SetCheckpoint(__FILE__, __LINE__, m))
-
 /* Mutex class that follows the behavior of Windows mutexes: if the same
  * thread locks the same mutex twice, we just increase a refcount; a mutex
  * is considered unlocked when the refcount reaches zero.  This is more
@@ -145,7 +145,7 @@ private:
 	LockMutex& operator=(const LockMutex& rhs);
 };
 
-#define LockMut(m) LockMutex SM_UNIQUE_NAME(LocalLock) (m, __FILE__, __LINE__)
+#define LockMut(m) LockMutex SM_UNIQUE_NAME(LocalLock) (m, __FILENAME__, __LINE__)
 
 class EventImpl;
 class RageEvent: public RageMutex
