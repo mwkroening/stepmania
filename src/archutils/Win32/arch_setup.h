@@ -128,9 +128,7 @@ int64_t llabs( int64_t i ) { return i >= 0 ? i : -i; }
 
 /* We implement the crash handler interface (though that interface isn't
  * completely uniform across platforms yet). */
-#if !defined(SMPACKAGE)
 #define CRASH_HANDLER
-#endif
 
 #if defined(__GNUC__) // It might be MinGW or Cygwin(?)
 #include "archutils/Common/gcc_byte_swaps.h"
