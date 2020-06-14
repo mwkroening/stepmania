@@ -391,7 +391,7 @@ elseif(LINUX)
 
   set(HAS_XRANDR FALSE)
   if(WITH_XRANDR)
-    find_package(Xrandr REQUIRED)
+    find_package(XRANDR REQUIRED)
     set(HAS_XRANDR TRUE)
   endif()
 
