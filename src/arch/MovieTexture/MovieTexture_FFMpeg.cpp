@@ -140,7 +140,7 @@ MovieDecoder_FFMpeg::~MovieDecoder_FFMpeg()
     {
         avcodec::av_free(m_buffer);
     }
-#if LIBAVCODEC_VERSION_MAJOR >= 58
+#if LIBAVCODEC_VERSION_MAJOR >= 55
 	if ( m_pStreamCodec != nullptr)
 	{
 		avcodec::avcodec_free_context(&m_pStreamCodec);
