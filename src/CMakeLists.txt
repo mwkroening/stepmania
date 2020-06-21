@@ -114,7 +114,6 @@ set_target_properties("${SM_EXE_NAME}"
 
 # Required for usage of tomcrypt and tommath.
 sm_add_compile_definition("${SM_EXE_NAME}" LTM_DESC)
-sm_add_compile_definition("${SM_EXE_NAME}" USE_LTM)
 
 if(WITH_PORTABLE_TOMCRYPT)
   sm_add_compile_definition("${SM_EXE_NAME}" LTC_NO_ASM)
