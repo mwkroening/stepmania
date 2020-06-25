@@ -1,5 +1,5 @@
 /*
-** $Id: luaconf.h 27862 2009-01-05 22:02:30Z GRIM657 $
+** $Id: luaconf.h,v 1.82 2006/04/10 18:27:23 roberto Exp $
 ** Configuration file for Lua
 ** See Copyright Notice in lua.h
 */
@@ -10,16 +10,7 @@
 
 #include <limits.h>
 #include <stddef.h>
-#if defined(_WIN32)
-typedef unsigned int uint32_t;
-typedef int int32_t;
-#else
-#include <inttypes.h>
-#endif
 
-#if defined(HAVE_CONFIG_H)
-#include <config.h>
-#endif
 
 /*
 ** ==================================================================
@@ -216,7 +207,7 @@ typedef int int32_t;
 @* of a function in debug information.
 ** CHANGE it if you want a different size.
 */
-#define LUA_IDSIZE	150
+#define LUA_IDSIZE	60
 
 
 /*
@@ -419,11 +410,20 @@ typedef int int32_t;
 ** part always works, but may waste space on machines with 64-bit
 ** longs.) Probably you do not need to change this.
 */
-#define LUAI_UINT32	uint32_t
-#define LUAI_INT32	int32_t
+#if LUAI_BITSINT >= 32
+#define LUAI_UINT32	unsigned int
+#define LUAI_INT32	int
 #define LUAI_MAXINT32	INT_MAX
 #define LUAI_UMEM	size_t
 #define LUAI_MEM	ptrdiff_t
+#else
+/* 16-bit ints */
+#define LUAI_UINT32	unsigned long
+#define LUAI_INT32	long
+#define LUAI_MAXINT32	LONG_MAX
+#define LUAI_UMEM	unsigned long
+#define LUAI_MEM	long
+#endif
 
 
 /*
@@ -703,6 +703,7 @@ union luai_Cast { double l_d; long l_l; };
 #if defined(LUA_WIN)
 #define LUA_DL_DLL
 #endif
+
 
 /*
 @@ LUAI_EXTRASPACE allows you to add user-specific data in a lua_State

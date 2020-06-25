@@ -1,5 +1,5 @@
 /*
-** $Id: ldebug.c 25893 2007-04-21 20:08:12Z stevecheckoway $
+** $Id: ldebug.c,v 2.29 2005/12/22 16:19:56 roberto Exp $
 ** Debug Interface
 ** See Copyright Notice in lua.h
 */
@@ -180,7 +180,7 @@ static void collectvalidlines (lua_State *L, Closure *f) {
   }
   else {
     Table *t = luaH_new(L, 0, 0);
-    uint32_t *lineinfo = f->l.p->lineinfo;
+    int *lineinfo = f->l.p->lineinfo;
     int i;
     for (i=0; i<f->l.p->sizelineinfo; i++)
       setbvalue(luaH_setnum(L, t, lineinfo[i]), 1);

@@ -1,5 +1,5 @@
 /*
-** $Id: ldebug.h 25893 2007-04-21 20:08:12Z stevecheckoway $
+** $Id: ldebug.h,v 2.3 2005/04/25 19:24:10 roberto Exp $
 ** Auxiliary functions from Debug Interface module
 ** See Copyright Notice in lua.h
 */
@@ -13,7 +13,7 @@
 
 #define pcRel(pc, p)	(cast(int, (pc) - (p)->code) - 1)
 
-#define getline(f,pc)	(((f)->lineinfo) ? (int)(f)->lineinfo[pc] : 0)
+#define getline(f,pc)	(((f)->lineinfo) ? (f)->lineinfo[pc] : 0)
 
 #define resethookcount(L)	(L->hookcount = L->basehookcount)
 

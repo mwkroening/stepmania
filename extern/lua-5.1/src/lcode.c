@@ -1,5 +1,5 @@
 /*
-** $Id: lcode.c 25893 2007-04-21 20:08:12Z stevecheckoway $
+** $Id: lcode.c,v 2.25 2006/03/21 19:28:49 roberto Exp $
 ** Code generator for Lua
 ** See Copyright Notice in lua.h
 */
@@ -786,7 +786,7 @@ static int luaK_code (FuncState *fs, Instruction i, int line) {
                   MAX_INT, "code size overflow");
   f->code[fs->pc] = i;
   /* save corresponding line information */
-  luaM_growvector(fs->L, f->lineinfo, fs->pc, f->sizelineinfo, uint32_t,
+  luaM_growvector(fs->L, f->lineinfo, fs->pc, f->sizelineinfo, int,
                   MAX_INT, "code size overflow");
   f->lineinfo[fs->pc] = line;
   return fs->pc++;
